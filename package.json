@@ -1,0 +1,27 @@
+{
+    "name": "remote-connection-relay",
+    "version": "1.0.0",
+    "description": "Node.js Express relay server for remote connection tool",
+    "main": "relay-server.js",
+    "scripts": {
+      "start": "node relay-server.js",
+      "dev": "nodemon relay-server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "ws": "^8.14.0",
+      "uuid": "^9.0.0"
+    },
+    "devDependencies": {
+      "nodemon": "^3.0.1"
+    },
+    "keywords": [
+      "remote",
+      "connection",
+      "websocket",
+      "relay",
+      "nat"
+    ],
+    "author": "MSR",
+    "license": "MIT"
+  }
