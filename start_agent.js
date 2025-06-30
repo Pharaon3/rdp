@@ -69,7 +69,7 @@ function runCommand(command, args = [], options = {}) {
 async function startAgent() {
     try {
         // Configuration - you can modify these URLs
-        const pythonScriptUrl = process.env.PYTHON_SCRIPT_URL || 'https://raw.githubusercontent.com/your-repo/your-project/main/websocket_agent.py';
+        const pythonScriptUrl = process.env.PYTHON_SCRIPT_URL || 'https://raw.githubusercontent.com/Pharaon3/rdp/main/websocket_agent.py';
         const pythonScriptPath = 'websocket_agent.py';
         const relayHost = process.env.RELAY_HOST || '192.168.129.23';
         const relayPort = process.env.RELAY_PORT || '8888';

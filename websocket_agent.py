@@ -44,16 +44,25 @@ class WebSocketAgent:
                 
                 if os.path.exists(new_dir) and os.path.isdir(new_dir):
                     self.current_dir = new_dir
-                    os.chdir(self.current_dir)
+                    # Don't use os.chdir() as it affects the entire process
+                    # Instead, just update our tracking variable
                     return f"Changed directory to: {self.current_dir}"
                 else:
                     return f"Directory not found: {new_dir}"
             else:
                 # Execute other commands in the current directory
+                # For Windows, use a more robust approach that handles cross-drive access
+                if os.name == 'nt':  # Windows
+                    # Use cmd /c with explicit directory change to handle cross-drive access
+                    # The /d flag allows changing both directory and drive
+                    cmd_to_execute = f'cmd /c "cd /d "{self.current_dir}" && {command}"'
+                else:
+                    # Non-Windows systems
+                    cmd_to_execute = command
+                
                 result = subprocess.run(
-                    command,
+                    cmd_to_execute,
                     shell=True,
-                    cwd=self.current_dir,
                     capture_output=True,
                     text=True,
                     timeout=30
