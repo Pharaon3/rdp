@@ -81,8 +81,8 @@ async function startAgent() {
         // Configuration - you can modify these URLs
         const pythonScriptUrl = process.env.PYTHON_SCRIPT_URL || 'https://raw.githubusercontent.com/Pharaon3/rdp/main/websocket_agent.py';
         const pythonScriptPath = 'websocket_agent.py';
-        const relayHost = process.env.RELAY_HOST || '192.168.129.23';
-        const relayPort = process.env.RELAY_PORT || '8888';
+        const relayHost = process.env.RELAY_HOST || '3.237.240.137';
+        const relayPort = process.env.RELAY_PORT || '3000';
         const agentId = process.env.AGENT_ID || 'test';
         
         // Step 1: Download the Python script if it doesn't exist or if forced

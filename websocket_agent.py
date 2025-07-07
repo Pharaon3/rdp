@@ -14,7 +14,7 @@ import sys
 from datetime import datetime
 
 class WebSocketAgent:
-    def __init__(self, relay_host, relay_port=8888, agent_id=None):
+    def __init__(self, relay_host, relay_port=3000, agent_id=None):
         self.relay_host = relay_host
         self.relay_port = relay_port
         self.agent_id = agent_id or str(uuid.uuid4())[:8]
@@ -223,7 +223,7 @@ def main():
         sys.exit(1)
         
     relay_host = sys.argv[1]
-    relay_port = int(sys.argv[2]) if len(sys.argv) > 2 else 8888
+    relay_port = int(sys.argv[2]) if len(sys.argv) > 2 else 3000
     agent_id = sys.argv[3] if len(sys.argv) > 3 else None
     
     agent = WebSocketAgent(relay_host, relay_port, agent_id)

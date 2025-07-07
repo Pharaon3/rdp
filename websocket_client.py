@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime
 
 class WebSocketClient:
-    def __init__(self, relay_host, relay_port=8888):
+    def __init__(self, relay_host, relay_port=3000):
         self.relay_host = relay_host
         self.relay_port = relay_port
         self.client_id = str(uuid.uuid4())[:8]
@@ -265,13 +265,13 @@ def main():
         sys.exit(1)
         
     relay_host = sys.argv[1]
-    relay_port = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 8888
+    relay_port = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 3000
     
     # Check if we have agent_id and command for single command mode
     if len(sys.argv) >= 4:
         agent_id = sys.argv[2] if not sys.argv[2].isdigit() else sys.argv[3]
         command = ' '.join(sys.argv[3:] if not sys.argv[2].isdigit() else sys.argv[4:])
-        relay_port = int(sys.argv[2]) if sys.argv[2].isdigit() else 8888
+        relay_port = int(sys.argv[2]) if sys.argv[2].isdigit() else 3000
     else:
         agent_id = None
         command = None

